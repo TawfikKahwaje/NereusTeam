@@ -8,7 +8,14 @@ angular.module('Khitwa.services', [])
 		})
 		.then(function (res) {
 			return res.data;
-		})
+		}),
+  var createEvent = function (link) {
+      return $http({
+        method: 'POST',
+        url: '/api/events',
+        // data: link
+      })
+    }  
 	}
 	return {
 		getEvents: getEvents
