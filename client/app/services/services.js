@@ -1,19 +1,19 @@
 angular.module('Khitwa.services', [])
 
-// .factory('events', function ($http) {
-// 	var getEvents = function () {
-// 		return $http({
-// 			method: 'GET',
-// 			url: '/api/events'
-// 		})
-// 		.then(function (res) {
-// 			return res.data;
-// 		})
-// 	}
-// 	return {
-// 		getEvents: getEvents
-// 	};
-// })
+.factory('events', function ($http) {
+	var getEvents = function () {
+		return $http({
+			method: 'GET',
+			url: '/api/events'
+		})
+		.then(function (res) {
+			return res.data;
+		})
+	}
+	return {
+		getEvents: getEvents
+	};
+})
 
 .factory('Auth', function ($http, $location, $window) {
   // Don't touch this Auth service!!!
