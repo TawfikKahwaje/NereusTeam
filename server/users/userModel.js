@@ -1,6 +1,5 @@
 var Q = require('q');
 var mongoose = require('mongoose');
-var Event = require('../events/eventModel.js');
 
 var bcrypt = require('bcrypt-nodejs');
 var SALT_WORK_FACTOR = 10;
@@ -11,23 +10,23 @@ var UserSchema = new mongoose.Schema({
 	userName: {
     type: String,
     required: true,
-    unique: true
+    //unique: true
   },
   password: {
     type: String,
-    required: true
+    //required: true
   },
   firstName: {
   	type: String,
-  	required: true
+  	//required: true
   },
   lastName: {
   	type: String,
-  	required: true
+  	//required: true
   },
   email: {
   	type: String,
-  	required: true
+  	//required: true
   },
   dateOfBirth: {
   	type: String
@@ -37,11 +36,11 @@ var UserSchema = new mongoose.Schema({
   },
   phoneNumber: {
   	type: String,
-  	required: true
+  	//required: true
   },
   skills: {
   	type: String,
-  	required: true
+  	//required: true
   },
   rate: Number,
   picture: String,
@@ -51,8 +50,11 @@ var UserSchema = new mongoose.Schema({
 
 });
 
+var User=mongoose.model('User', UserSchema);
 
-UserSchema.methods.comparePasswords = function (candidatePassword) {
+
+
+User.comparePasswords = function (candidatePassword) {
   var savedPassword = this.password;
   return Q.Promise(function (resolve, reject) {
     bcrypt.compare(candidatePassword, savedPassword, function (err, isMatch) {
@@ -93,6 +95,16 @@ UserSchema.pre('save', function (next) {
   });
 });
 
-module.exports = mongoose.model('users', UserSchema);
+
+// var newUser=new User({
+//   userName : 'tawfik'
+// });
+
+// newUser.save(function (err,newEntry) {
+//   console.log(newEntry);
+// })
+
+
+module.exports = User;
 
 
