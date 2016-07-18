@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
-var User = require('../users/userModel.js');
 
-var eventSchema = Schema({
+var eventSchema = new mongoose.Schema({
   _id: {
     type: String,
     required: true,
@@ -9,14 +8,14 @@ var eventSchema = Schema({
   },
   title : {
   	type : String,
-  	required : true;
+  	required : true
   },
   _owner : { 
   	type: mongoose.Schema.Types.ObjectId,
   	ref: 'User'
   },
-  startDate : Date
-  endDate : Date
+  startDate : Date,
+  endDate : Date,
   location : String,
   locationId : String,
   type : String,
@@ -26,6 +25,6 @@ var eventSchema = Schema({
   endHour : String,
   poster : String
 });
+var Event=mongoose.model('Event', eventSchema);
 
-
-module.exports = mongoose.model('events', eventSchema);
+module.exports = Event;
