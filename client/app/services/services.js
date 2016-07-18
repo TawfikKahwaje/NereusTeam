@@ -8,10 +8,18 @@ angular.module('Khitwa.services', [])
 		})
 		.then(function (res) {
 			return res.data;
-		})
+		}),
+  var createEvent = function (link) {
+      return $http({
+        method: 'POST',
+        url: '/api/createEvent',
+         data: event
+      })
+    }  
 	}
 	return {
-		getEvents: getEvents
+		getEvents: getEvents,
+    createEvent: createEvent
 	};
 })
 
@@ -20,7 +28,7 @@ angular.module('Khitwa.services', [])
   // it is responsible for authenticating our user
   // by exchanging the user's username and password
   // for a JWT from the server
-  // that JWT is then stored in localStorage as 'com.shortly'
+  // that JWT is then stored in localStorage as 'com.Khitwa'
   // after you signin/signup open devtools, click resources,
   // then localStorage and you'll see your token from the server
   var signin = function (user) {
