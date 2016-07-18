@@ -9,6 +9,7 @@ var app = angular.module('Khitwa', [])
       templateUrl: 'app/auth/signup.html',
       controller: 'AuthController'
     })
+    // add routes when needed for pages
     .otherwise({ redirectTo: '/events' });
     $httpProvider.interceptors.push('AttachTokens');
 });
