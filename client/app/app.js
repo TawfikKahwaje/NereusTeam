@@ -10,6 +10,26 @@ var app = angular.module('Khitwa', [])
       controller: 'AuthController'
     })
     // add routes when needed for pages
+    .when('/event', {
+      templateUrl: 'app/event/event.html',
+      controller: 'EventCtrl',
+      authenticate: true
+    })
+    .when('/events', {
+      templateUrl: 'app/events/events.html',
+      controller: 'EventsCtrl',
+      authenticate: true
+    })
+    .when('/createEvent', {
+      templateUrl: 'createEvent.html',
+      controller: 'CreateEventCtrl',
+      authenticate: true
+    })
+    .when('/user', {
+      templateUrl: 'app/user/user.html',
+      controller: 'UserCtrl',
+      authenticate: true
+    })
     .otherwise({ redirectTo: '/events' });
     $httpProvider.interceptors.push('AttachTokens');
 });
