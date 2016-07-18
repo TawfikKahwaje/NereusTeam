@@ -28,11 +28,11 @@ gulp.task('start', ['serve'], function () {
 });
 
 // Run our karma tests
-gulp.task('karma', function (done) {
-  new KarmaServer({
-    configFile: __dirname + '/karma.conf.js'
-  }, done).start();
-});
+// gulp.task('karma', function (done) {
+//   new KarmaServer({
+//     configFile: __dirname + '/karma.conf.js'
+//   }, done).start();
+// });
 
 // start our node server using nodemon
 gulp.task('serve', function () {
