@@ -1,7 +1,4 @@
-// do not tamper with this code in here, study it, but do not touch
-// this Auth controller is responsible for our client side authentication
-// in our signup/signin forms using the injected Auth service
-angular.module('shortly.auth', [])
+angular.module('Khitwa.auth', [])
 
 .controller('AuthController', function ($scope, $window, $location, Auth) {
   $scope.user = {};
@@ -9,8 +6,8 @@ angular.module('shortly.auth', [])
   $scope.signin = function () {
     Auth.signin($scope.user)
       .then(function (token) {
-        $window.localStorage.setItem('com.shortly', token);
-        $location.path('/links');
+        $window.localStorage.setItem('com.Khitwa', token);
+        $location.path('/events');
       })
       .catch(function (error) {
         console.error(error);
@@ -20,8 +17,8 @@ angular.module('shortly.auth', [])
   $scope.signup = function () {
     Auth.signup($scope.user)
       .then(function (token) {
-        $window.localStorage.setItem('com.shortly', token);
-        $location.path('/links');
+        $window.localStorage.setItem('com.Khitwa', token);
+        $location.path('/events');
       })
       .catch(function (error) {
         console.error(error);
