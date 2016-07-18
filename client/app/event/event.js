@@ -1,4 +1,4 @@
-angular.module('Khitwa.events', [])
+angular.module('Khitwa.event', [])
 .controller('EventCtrl', function ($scope) {
 	
 });
