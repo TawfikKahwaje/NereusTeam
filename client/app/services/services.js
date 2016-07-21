@@ -18,11 +18,11 @@ angular.module('Khitwa.services', [])
       })
     }
 //need fixing: how to get an event based on their id
-  var getEvent = function(id){
+  var getEvent = function(){
     return $http({
       method: 'GET',
-      url: '/api/event',
-      data: id
+      url: '/api/event'
+      // data: id
     })
     .then(function(resp){
       return resp.data;
