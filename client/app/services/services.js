@@ -9,14 +9,25 @@ angular.module('Khitwa.services', [])
 		.then(function (res) {
 			return res.data;
 		});
+  }
   var createEvent = function (event) {
       return $http({
         method: 'POST',
         url: '/api/createEvent',
         data: event
       })
-    }  
-	}
+    }
+//need fixing: how to get an event based on their id
+  var getEvent = function(id){
+    return $http({
+      method: 'GET',
+      url: '/api/event',
+      data: id
+    })
+    .then(function(resp){
+      return resp.data;
+    });
+  }  
 	return {
 		getEvents: getEvents,
     createEvent: createEvent
