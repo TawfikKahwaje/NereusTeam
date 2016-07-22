@@ -3,6 +3,11 @@ angular.module('Khitwa.event', [])
 	$scope.signout = function(){
 		Auth.signout();
 	}
+	$scope.userId = window.userId;
+
+	$scope.join = function(){
+		Events.joinEvent($scope.userId,$routeParams.id)
+	}
 
 	$scope.showEvent = function(){
 		Events.getEvent($routeParams.id)
