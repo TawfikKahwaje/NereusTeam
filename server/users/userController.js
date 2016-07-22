@@ -21,56 +21,94 @@ module.exports = {
 
 
 
-  signin: function (req, res, next) {
+  // signin: function (req, res, next) {
+  //   var username = req.body.username;
+  //   var password = req.body.password;
+
+  //   findUser({userName: username})
+  //     .then(function (user) {
+  //       if (!user) {
+  //         next(new Error('User does not exist'));
+  //       } else {
+  //         return User.comparePasswords(password)
+  //           .then(function (foundUser) {
+  //             if (foundUser) {
+  //               var token = jwt.encode(user, 'secret');
+  //               res.json({token: token});
+  //             } else {
+  //               return next(new Error('No user'));
+  //             }
+  //           });
+  //       }
+  //     })
+  //     .fail(function (error) {
+  //       next(error);
+  //     });
+  // },
+
+
+  // Test : Post
+  // http://127.0.0.1:8000/api/users/signin
+  // body :
+  // {
+  //   "username" : "admin",
+  //   "password" : "admin"
+  // }
+
+  signin: function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    findUser({username: username})
-      .then(function (user) {
-        if (!user) {
-          next(new Error('User does not exist'));
+    User.findOne({userName: username})
+      .exec(function (error, user) {
+        if(error){
+          console.log(error);
+          res.status(500).send(error);
+        } else if (!user) {
+          res.status(500).send(new Error('User does not exist'));
         } else {
-          return user.comparePasswords(password)
-            .then(function (foundUser) {
-              if (foundUser) {
-                var token = jwt.encode(user, 'secret');
-                res.json({token: token});
-              } else {
-                return next(new Error('No user'));
-              }
-            });
+          //console.log('hi')
+          User.comparePassword(password,user.password, res, function(found){
+            if(!found){
+              res.status(500).send('Wrong Password');
+            } else {
+              var token = jwt.encode(user, 'secret');
+              res.setHeader('x-access-token',token);
+              res.json({token: token});
+            }
+          });
         }
-      })
-      .fail(function (error) {
-        next(error);
       });
   },
 
-  signup: function (req, res, next) {
-    console.log(req.body);
+
+  // Test 'Post'
+  // http://127.0.0.1:8000/api/users/signup
+  // Body : {
+  //     "username" : "tawfik",
+  //     "password" : "admin"
+  // }
+
+  signup : function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    // check to see if user already exists
-    findUser({username: username})
-      .then(function (user) {
-        if (user) {
-          next(new Error('User already exist!'));
-        } else {
-          // make a new user if not one
-          return createUser({
-            username: username,
+    User.findOne({ userName: username })
+      .exec(function(err, user) {
+        if (!user) {
+          var newUser = new User({
+            userName: username,
             password: password
           });
+          newUser.save(function(err, newUser) {
+            console.log(newUser)
+            res.send(200,'done')
+            //util.createSession(req, res, newUser);
+          });
+        } else {
+          console.log('Account already exists');
+          res.redirect('/signup');
         }
-      })
-      .then(function (user) {
-        // create token to send back for auth
-        var token = jwt.encode(user, 'secret');
-        res.json({token: token});
-      })
-      .fail(function (error) {
-        next(error);
       });
   },
 
@@ -96,5 +134,17 @@ module.exports = {
           next(error);
         });
     }
+  },
+
+  getUser : function (req,res,next) {
+    
+    console.log(req.params.id);
+    var id=(req.params.id).toString();
+    User.findOne({_id : id}, function (err , user) {
+      if(err)
+        res.status(500).send(err);
+      res.json(user);
+    })
   }
+
 };

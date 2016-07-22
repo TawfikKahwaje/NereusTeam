@@ -1,11 +1,6 @@
 var mongoose = require('mongoose');
 
 var eventSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-    required: true,
-    unique: true
-  },
   title : {
   	type : String,
   	required : true
@@ -14,8 +9,8 @@ var eventSchema = new mongoose.Schema({
   	type: mongoose.Schema.Types.ObjectId,
   	ref: 'User'
   },
-  startDate : Date,
-  endDate : Date,
+  startDate : String,
+  endDate : String,
   location : String,
   locationId : String,
   type : String,
@@ -23,8 +18,18 @@ var eventSchema = new mongoose.Schema({
   skillsrequired : [String],
   startHour : String ,
   endHour : String,
-  poster : String
+  poster : String,
+  users : [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 var Event=mongoose.model('Event', eventSchema);
+
+
+// var newEvent=new Event({
+//   title : 'new Event'
+// });
+
+// newEvent.save(function (err,newEntry) {
+//   console.log(newEntry);
+// })
 
 module.exports = Event;
