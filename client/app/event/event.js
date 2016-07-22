@@ -1,6 +1,6 @@
 angular.module('Khitwa.event', [])
 .controller('EventCtrl', function ($scope, Events,$window, $routeParams, Auth) {
-	scope.signout = function(){
+	$scope.signout = function(){
 		Auth.signout();
 	}
 
