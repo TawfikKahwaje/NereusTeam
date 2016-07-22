@@ -22,7 +22,6 @@ angular.module('Khitwa.services', [])
     return $http({
       method: 'GET',
       url: '/api/event/'+eventId
-      // data: id
     })
     .then(function(resp){
       return resp.data;
@@ -39,11 +38,23 @@ angular.module('Khitwa.services', [])
     })
   }  
 
+  var joinEvent = function (userID, EventId) {
+    return $http({
+      method : 'POST',
+      url : '/api/applyEvent',
+      data : { userId : userID, eventId : EventId }
+    })
+    .then(function(res){
+      return res.data;
+    })
+  }
+
 	return {
 		getEvents: getEvents,
     createEvent: createEvent,
     getEvent: getEvent, 
-    getUser : getUser
+    getUser : getUser,
+    joinEvent : joinEvent
 	};
 })
 
