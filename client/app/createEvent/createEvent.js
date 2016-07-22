@@ -1,6 +1,9 @@
 angular.module('Khitwa.createEvent', [])
 //user can create event
-.controller('CreateEventCtrl', function ($scope, $location, Events) {
+.controller('CreateEventCtrl', function ($scope, $location, Events, Auth) {
+	scope.signout = function(){
+		Auth.signout();
+	}
 	$scope.event={};
 	$scope.addEvent = function () {
 		Events.createEvent($scope.event)

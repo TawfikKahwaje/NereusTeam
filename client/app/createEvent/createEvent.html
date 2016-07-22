@@ -1,3 +1,16 @@
+<nav class="navigation">
+    <ul>
+      <li>
+          <a class="selected" href="#/events">Events</a>
+      </li>
+       <li>
+          <a href="#/user/{{userId}}">User</a>
+      </li>
+      <li>
+        <a href="#/signin" ng-click="signout()">Log Out</a>
+      </li>
+    </ul>
+  </nav>
 <div class="createEvent">
      <h1>Create Event</h1>
        <form name="createEventForm" method="post" ng-submit="addEvent()">    

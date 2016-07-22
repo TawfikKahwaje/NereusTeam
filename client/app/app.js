@@ -33,7 +33,7 @@ angular.module('Khitwa', [
       controller: 'CreateEventCtrl',
       authenticate: true
     })
-    .when('/user', {
+    .when('/user/:id', {
       templateUrl: 'app/user/user.html',
       controller: 'UserCtrl',
       authenticate: true

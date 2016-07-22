@@ -2,13 +2,13 @@ angular.module('Khitwa.auth', [])
 
 .controller('AuthController', function ($scope, $window, $location, Auth) {
   $scope.user = {};
-  $window.username="";
+  window.userId="";
 
   $scope.signin = function () {
     Auth.signin($scope.user)
-      .then(function (token) {
-        $window.username=$scope.user.username;
-        $window.localStorage.setItem('com.Khitwa', token);
+      .then(function (data) {
+        window.userId = data.userId;
+        $window.localStorage.setItem('com.Khitwa', data.token);
         $location.path('/events');
       })
       .catch(function (error) {

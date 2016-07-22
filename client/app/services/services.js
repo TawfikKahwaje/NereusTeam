@@ -35,7 +35,7 @@ angular.module('Khitwa.services', [])
       url : '/api/user/'+userID
     })
     .then(function(res){
-      return res.date
+      return res.data;
     })
   }  
 
@@ -62,7 +62,7 @@ angular.module('Khitwa.services', [])
       data: user
     })
     .then(function (resp) {
-      return resp.data.token;
+      return resp.data;
     });
   };
 
