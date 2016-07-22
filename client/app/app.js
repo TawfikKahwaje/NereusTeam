@@ -1,4 +1,12 @@
-var app = angular.module('Khitwa', [])
+angular.module('Khitwa', [
+  'Khitwa.services',
+  'Khitwa.createEvent',
+  'Khitwa.auth',
+  'Khitwa.event',
+  'Khitwa.events',
+  'Khitwa.user',
+  'ngRoute'
+])
 .config(function ($routeProvider, $httpProvider) {
   $routeProvider
     .when('/signin', {
@@ -32,7 +40,7 @@ var app = angular.module('Khitwa', [])
     })
     .otherwise({ redirectTo: '/events' });
     $httpProvider.interceptors.push('AttachTokens');
-});
+})
 
 .factory('AttachTokens', function ($window) {
   // this is an $httpInterceptor
@@ -41,7 +49,7 @@ var app = angular.module('Khitwa', [])
   // then add it to the header so the server can validate the request
   var attach = {
     request: function (object) {
-      var jwt = $window.localStorage.getItem('com.Khitwa');
+      var jwt = $window.localStorage.getItem('com.shortly');
       if (jwt) {
         object.headers['x-access-token'] = jwt;
       }

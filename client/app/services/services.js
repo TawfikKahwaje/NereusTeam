@@ -1,6 +1,6 @@
 angular.module('Khitwa.services', [])
 
-.factory('events', function ($http) {
+.factory('Events', function ($http) {
 	var getEvents = function () {
 		return $http({
 			method: 'GET',
@@ -8,12 +8,12 @@ angular.module('Khitwa.services', [])
 		})
 		.then(function (res) {
 			return res.data;
-		}),
-  var createEvent = function (link) {
+		});
+  var createEvent = function (event) {
       return $http({
         method: 'POST',
         url: '/api/createEvent',
-         data: event
+        data: event
       })
     }  
 	}

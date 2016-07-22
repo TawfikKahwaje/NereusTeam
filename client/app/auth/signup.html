@@ -1,20 +1,20 @@
 <link rel="stylesheet" type="text/css" href="../styles/style.css">
 <center><div id='signup'>
   <h1>Sign up</h1>
-  <form name="signupForm" method="post">
+  <form name="signupForm" method="post" ng-submit='signup()'>
   <fieldset>
-    User Name: <input type='text' id='userName'><br>
-    First Name: <input type='text' id='firstName'><br>
-    Last Name: <input type='text' id='lastName'><br>
-    Password: <input type="password" id='password'><br>
-    Email: <input type="email" id="email"><br>
-    Date of Birth: <input type="date" id="dateOfBirth"><br>
-    Gender: <input type="radio" id="gender" value="Male" checked>Male<br>
+    User Name: <input type='text' id='userName' ng-model="user.username"><br>
+    First Name: <input type='text' id='firstName' ng-model="user.firstName"><br>
+    Last Name: <input type='text' id='lastName' ng-model="user.lastName"><br>
+    Password: <input type="password" id='password' ng-model="user.password"><br>
+    Email: <input type="email" id="email" ng-model="user.email"><br>
+    Date of Birth: <input type="date" id="dateOfBirth" ng-model="user.dateOfBirth"><br>
+    Gender: <input type="radio" id="gender" value="Male" checked ng-model='user.gender'>Male<br>
     <input type="radio" id="gender" value="female"> Female<br>
     <input type="radio" id="gender" value="other"> Other<br>
-    Phone Number: <input type="tel" id="phoneNumber"><br>
-    skills: <input type="text" id="skills"><br>
-    Picture: <input type="file" name="fileToUpload" id="fileToUpload"><br>
+    Phone Number: <input type="tel" id="phoneNumber" ng-model="user.phoneNumber"><br>
+    skills: <input type="text" id="skills" ng-model="user.skills"><br>
+    Picture: <input type="file" name="fileToUpload" id="fileToUpload" ng-model="user.picture"><br>
     <input type="submit" name="submit" id="submit">
     </fieldset>
   </form>
