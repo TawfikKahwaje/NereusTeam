@@ -11,11 +11,17 @@ module.exports = function (app, express) {
   
   app.get('/api/users/signedin', userController.checkAuth);
 
+  app.get('/api/user/:id',userController.getUser);
+
   app.get('/api/events',eventController.allEvents);
   
   app.post('/api/createEvent',eventController.newEvent);
 
   app.get('/api/event/:id',eventController.getEvent);
+
+
+  app.post('/api/applyEvent',eventController.applyEvent);
+
 
 
   //app.get('/api/users',userController.allUser);
