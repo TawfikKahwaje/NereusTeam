@@ -1,4 +1,5 @@
 angular.module('Khitwa.user', [])
-.controller('UserCtrl', function ($scope) {
-	
+.controller('UserCtrl', function ($scope,$window) {
+	$window.username
+
 });

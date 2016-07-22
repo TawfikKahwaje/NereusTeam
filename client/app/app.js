@@ -29,7 +29,7 @@ angular.module('Khitwa', [
       authenticate: true
     })
     .when('/createEvent', {
-      templateUrl: 'createEvent.html',
+      templateUrl: 'app/createEvent/createEvent.html',
       controller: 'CreateEventCtrl',
       authenticate: true
     })

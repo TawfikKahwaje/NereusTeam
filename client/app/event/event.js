@@ -1,5 +1,7 @@
 angular.module('Khitwa.event', [])
-.controller('EventCtrl', function ($scope, Event) {
+.controller('EventCtrl', function ($scope, Event,$window) {
+    console.log($window.username)
+
 	$scope.data={};
 	$scope.showEvent = function(){
 		Event.getEvent()
