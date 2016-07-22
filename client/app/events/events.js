@@ -1,5 +1,5 @@
 angular.module('Khitwa.events', [])
-.controller('EventsCtrl', function ($scope, Events) {
+.controller('EventsCtrl', function ($scope, Events,$location) {
 	$scope.data={};
 	Events.getEvents()
 	.then(function(events){

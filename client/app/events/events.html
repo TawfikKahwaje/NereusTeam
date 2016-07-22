@@ -1,16 +1,15 @@
-<div class="events">
+<div class="events" ng-repeat="event in data.events">
   <div class="event">
     <div class="info">
       <div class="title"></div>
-      This is the Events page
       <ul>
-      	<li ng-repeat="event in data.events">
-      		{{event.title}}
+      	<li >
+      		<a href="#/event/{{event._id}}">{{event.title}}</a>
       	</li>
       </ul>
-      <div class="type"></div>
-      <div class="startDate"></div>
-      <div class="endDate"></div>
+      <div class="type">{{event.type}}</div>
+      <div class="startDate">{{event.startDate}}</div>
+      <div class="endDate">{{event.endDate}}</div>
     </div>
   </div>
 </div>

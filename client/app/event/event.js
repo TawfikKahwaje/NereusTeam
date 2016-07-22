@@ -1,15 +1,14 @@
 angular.module('Khitwa.event', [])
-.controller('EventCtrl', function ($scope, Event,$window) {
-    console.log($window.username)
+.controller('EventCtrl', function ($scope, Events,$window, $routeParams) {
 
-	$scope.data={};
 	$scope.showEvent = function(){
-		Event.getEvent()
+		Events.getEvent($routeParams.id)
 		.then(function(event){
-			$scope.data.event = event;
+			$scope.event = event;
 		})
 		.catch(function (error) {
         console.error(error);
       });
-	}	
+	}
+	$scope.showEvent();
 });
