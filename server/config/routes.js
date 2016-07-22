@@ -6,10 +6,16 @@ var helpers = require('./helpers.js'); // our custom middleware
 module.exports = function (app, express) {
 
   app.post('/api/users/signin', userController.signin);
+
   app.post('/api/users/signup', userController.signup);
+  
   app.get('/api/users/signedin', userController.checkAuth);
 
   app.get('/api/events',eventController.allEvents);
+  
+  app.post('/api/createEvent',eventController.newEvent);
+
+  app.get('/api/event/:id',eventController.getEvent);
 
 
   //app.get('/api/users',userController.allUser);

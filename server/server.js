@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost/Khitwa');
 db=mongoose.connection;
 db.once('open',function () {
 	console.log('mongo db is open');
-})
+});
 
 // configure our server with all the middleware and routing
 require('./config/middleware.js')(app, express);
