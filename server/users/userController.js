@@ -1,81 +1,138 @@
-//var linksController = require('../users/userController.js');
-var userController = require('../users/userController.js');
-var eventController = require('../events/eventController.js');
-var helpers = require('./helpers.js'); // our custom middleware
+var User = require('./userModel.js');
+    Q = require('q');
+    jwt = require('jwt-simple');
 
-module.exports = function (app, express) {
+// Promisify a few mongoose methods with the `q` promise library
+var findUser = Q.nbind(User.findOne, User);
+var createUser = Q.nbind(User.create, User);
+var findAllusers = Q.nbind(User.find, User);
 
-  app.post('/api/users/signin', userController.signin);
+module.exports = {
 
-  /*
-    Test 'Post'
-    http://127.0.0.1:8000/api/users/signup
-    Body : {
-        "username" : "tawfik",
-        "password" : "admin"
+  // allUser : function (req,res,next) {
+  //   findAllusers({})
+  //     .then(function (users) {
+  //       res.json(users);
+  //     })
+  //     .fail(function (err) {
+  //       next(err);
+  //     })
+  // },
+
+
+
+  // signin: function (req, res, next) {
+  //   var username = req.body.username;
+  //   var password = req.body.password;
+
+  //   findUser({userName: username})
+  //     .then(function (user) {
+  //       if (!user) {
+  //         next(new Error('User does not exist'));
+  //       } else {
+  //         return User.comparePasswords(password)
+  //           .then(function (foundUser) {
+  //             if (foundUser) {
+  //               var token = jwt.encode(user, 'secret');
+  //               res.json({token: token});
+  //             } else {
+  //               return next(new Error('No user'));
+  //             }
+  //           });
+  //       }
+  //     })
+  //     .fail(function (error) {
+  //       next(error);
+  //     });
+  // },
+
+
+  // Test : Post
+  // http://127.0.0.1:8000/api/users/signin
+  // body :
+  // {
+  //   "username" : "admin",
+  //   "password" : "admin"
+  // }
+
+  signin: function (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+
+    User.findOne({userName: username})
+      .exec(function (error, user) {
+        if(error){
+          console.log(error);
+          res.status(500).send(error);
+        } else if (!user) {
+          res.status(500).send(new Error('User does not exist'));
+        } else {
+          //console.log('hi')
+          User.comparePassword(password,user.password, res, function(found){
+            if(!found){
+              res.status(500).send('Wrong Password');
+            } else {
+              var token = jwt.encode(user, 'secret');
+              res.setHeader('x-access-token',token);
+              res.json({token: token});
+            }
+          });
+        }
+      });
+  },
+
+
+  // Test 'Post'
+  // http://127.0.0.1:8000/api/users/signup
+  // Body : {
+  //     "username" : "tawfik",
+  //     "password" : "admin"
+  // }
+
+  signup : function(req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+
+    User.findOne({ userName: username })
+      .exec(function(err, user) {
+        if (!user) {
+          var newUser = new User({
+            userName: username,
+            password: password
+          });
+          newUser.save(function(err, newUser) {
+            console.log(newUser)
+            res.send(200,'done')
+            //util.createSession(req, res, newUser);
+          });
+        } else {
+          console.log('Account already exists');
+          res.redirect('/signup');
+        }
+      });
+  },
+
+  checkAuth: function (req, res, next) {
+    // checking to see if the user is authenticated
+    // grab the token in the header is any
+    // then decode the token, which we end up being the user object
+    // check to see if that user exists in the database
+    var token = req.headers['x-access-token'];
+    if (!token) {
+      next(new Error('No token'));
+    } else {
+      var user = jwt.decode(token, 'secret');
+      findUser({username: user.username})
+        .then(function (foundUser) {
+          if (foundUser) {
+            res.send(200);
+          } else {
+            res.send(401);
+          }
+        })
+        .fail(function (error) {
+          next(error);
+        });
     }
-  */
-  app.post('/api/users/signup', userController.signup);
-
-
-  /*
-    Test : Post
-    http://127.0.0.1:8000/api/users/signin
-    body :
-    {
-      "username" : "admin",
-      "password" : "admin"
-    }
-  */
-  app.get('/api/users/signedin', userController.checkAuth);
-
-
-
-  /*
-    Test : Get
-    http://127.0.0.1:8000/api/events
-  */
-  app.get('/api/events',eventController.allEvents);
-
-
-  /* 
-    Test : Post
-    http://127.0.0.1:8000/api/createEvent
-    body :
-    {
-      "title" : "first Event",
-      "_owner" : "5791c2946b44ec0c052b6c7a",
-      "startDate" : "22/7/2016",
-      "endDate" : "26/7/2016",
-      "location" : "Amman",
-      "locationId" : " ",
-      "type" : "cultural",
-      "description" : "samera and so3 is new envent",
-      "skillsrequired" : ["a1","a2","a3"],
-      "startHour" : "5 PM" ,
-      "endHour" : "10 PM",
-      "poster" : "adfghj/jpg"
-    }
-  */
-  app.post('/api/createEvent',eventController.newEvent);
-
-
-
-  /*
-    Test : Get
-    http://127.0.0.1:8000/api/event/5791c53e990f8c9c16839fbd
-  */
-  app.get('/api/event/:id',eventController.getEvent);
-
-
-  //app.get('/api/users',userController.allUser);
-
-  // app.get('/api/links/', linksController.allLinks);
-  // app.post('/api/links/', linksController.newLink);
-
-  // If a request is sent somewhere other than the routes above,
-  // send it through our custom error handler
-  app.use(helpers.errorLogger);
-  app.use(helpers.errorHandler);
+  }
 };
-
