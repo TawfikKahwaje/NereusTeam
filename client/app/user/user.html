@@ -12,10 +12,25 @@
     </ul>
   </nav>
  <div>
- 	<p>
- 		{{user.userName}}
- 	</p>
- 	<p>
- 		{{user.email}}
- 	</p>
+ 	<p>User Name: {{user.userName}}</p>
+  <p>First Name: {{user.firstName}}</p>
+  <p>Last Name: {{user.lastName}}</p>
+ 	<p>Email: {{user.email}}</p>
+  <p>Date Of Birth: {{user.dateOfBirth}}</p>
+  <p>Gender: {{user.gender}}</p>
+  <p>Phone Number: {{user.phoneNumber}}</p>
+  <p>
+    <ul>
+      <li ng-repeat="skill in user.skills">
+        {{skill}}
+      </li>
+    </ul>
+  </p>
+  <p>
+    <ul>
+      <li ng-repeat="event in user.events">
+          {{event}}
+      </li>
+    </ul>
+  </p>
  </div>
