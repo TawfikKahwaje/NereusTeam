@@ -1,5 +1,8 @@
 angular.module('Khitwa.user', [])
-.controller('UserCtrl', function ($scope,$window, Events, $routeParams) {
+.controller('UserCtrl', function ($scope,$window, Events, $routeParams, Auth) {
+	$scope.signout = function(){
+		Auth.signout();
+	}
 	$scope.showUser = function (){
 		Events.getUser($routeParams.id)
 		.then(function(user){
