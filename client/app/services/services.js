@@ -27,11 +27,23 @@ angular.module('Khitwa.services', [])
     .then(function(resp){
       return resp.data;
     });
+  }
+
+  var getUser = function(userID){
+    return $http({
+      method : 'GET',
+      url : '/api/user/'+userID
+    })
+    .then(function(res){
+      return res.date
+    })
   }  
+
 	return {
 		getEvents: getEvents,
     createEvent: createEvent,
-    getEvent: getEvent
+    getEvent: getEvent, 
+    getUser : getUser
 	};
 })
 

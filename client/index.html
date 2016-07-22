@@ -2,8 +2,19 @@
 <html ng-app="Khitwa">
 <head>
 	<title>Khitwa</title>
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 <body>
+<nav class="navigation">
+    <ul>
+      <li>
+          <a class="selected" href="#/events">Events</a>
+      </li>
+       <li>
+          <a href="#/user/{{$window.}}">User</a>
+      </li>
+    </ul>
+  </nav>
 
 <div ng-view></div>
 <script src="lib/angular/angular.js"></script>
