@@ -134,5 +134,17 @@ module.exports = {
           next(error);
         });
     }
+  },
+
+  getUser : function (req,res,next) {
+    
+    console.log(req.params.id);
+    var id=(req.params.id).toString();
+    User.findOne({_id : id}, function (err , user) {
+      if(err)
+        res.status(500).send(err);
+      res.json(user);
+    })
   }
+
 };
