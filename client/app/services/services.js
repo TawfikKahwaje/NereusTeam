@@ -9,17 +9,41 @@ angular.module('Khitwa.services', [])
 		.then(function (res) {
 			return res.data;
 		});
+  }
   var createEvent = function (event) {
       return $http({
         method: 'POST',
         url: '/api/createEvent',
         data: event
       })
-    }  
-	}
+    }
+//need fixing: how to get an event based on their id
+  var getEvent = function(eventId){
+    return $http({
+      method: 'GET',
+      url: '/api/event/'+eventId
+      // data: id
+    })
+    .then(function(resp){
+      return resp.data;
+    });
+  }
+
+  var getUser = function(userID){
+    return $http({
+      method : 'GET',
+      url : '/api/user/'+userID
+    })
+    .then(function(res){
+      return res.date
+    })
+  }  
+
 	return {
 		getEvents: getEvents,
-    createEvent: createEvent
+    createEvent: createEvent,
+    getEvent: getEvent, 
+    getUser : getUser
 	};
 })
 

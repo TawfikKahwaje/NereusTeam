@@ -18,7 +18,7 @@ angular.module('Khitwa', [
       controller: 'AuthController'
     })
     // add routes when needed for pages
-    .when('/event', {
+    .when('/event/:id', {
       templateUrl: 'app/event/event.html',
       controller: 'EventCtrl',
       authenticate: true
@@ -29,7 +29,7 @@ angular.module('Khitwa', [
       authenticate: true
     })
     .when('/createEvent', {
-      templateUrl: 'createEvent.html',
+      templateUrl: 'app/createEvent/createEvent.html',
       controller: 'CreateEventCtrl',
       authenticate: true
     })
