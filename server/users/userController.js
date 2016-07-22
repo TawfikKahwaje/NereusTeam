@@ -74,7 +74,7 @@ module.exports = {
             } else {
               var token = jwt.encode(user, 'secret');
               res.setHeader('x-access-token',token);
-              res.json({token: token});
+              res.json({token: token, userId : user._id});
             }
           });
         }
@@ -145,6 +145,6 @@ module.exports = {
         res.status(500).send(err);
       res.json(user);
     })
-  }
+  }   
 
 };
