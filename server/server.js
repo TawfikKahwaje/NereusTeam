@@ -5,12 +5,11 @@ var user=require('./events/eventModel.js');
 
 var app = express();
 
-// connect to mongo database named "khatwa"
-mongoose.connect('mongodb://localhost/Khitwa');
-db=mongoose.connection;
-db.once('open',function () {
-	console.log('mongo db is open');
-});
+var mongoURI =  process.env.MONGODB_URI || 'mongodb://localhost/Khitwa';
+
+var port = process.env.PORT || 8000;
+// connect to mongo database named "surveyGS"
+mongoose.connect(mongoURI);
 
 // configure our server with all the middleware and routing
 require('./config/middleware.js')(app, express);
