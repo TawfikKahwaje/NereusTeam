@@ -11,7 +11,8 @@
   "scripts": {
     "test": "gulp karma",
     "start": "gulp",
-    "lint": "jscs ./"
+    "lint": "jscs ./",
+    "postinstall": "npm install -g bower; bower install;"
   },
   "pre-commit": "lint",
   "repository": {
