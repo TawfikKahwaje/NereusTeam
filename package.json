@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "test": "gulp karma",
-    "start": "gulp",
     "lint": "jscs ./",
     "postinstall": "npm install -g bower; bower install;"
   },
