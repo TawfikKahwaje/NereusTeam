@@ -9,7 +9,7 @@
     "Maryam Elham <maryamelham7@gmail.com>"
   ],
   "scripts": {
-    "test": "gulp karma",
+    "start": "nodemon server/server.js",
     "lint": "jscs ./",
     "postinstall": "npm install -g bower; bower install;"
   },
